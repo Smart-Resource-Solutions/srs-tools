@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>5-Day Time Audit Tracker | Smart Resource Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0F1F45;
+  --navy-light: #1a3570;
+  --red: #C41E3A;
+  --red-light: #e8394f;
+  --gold: #00B4D8;
+  --cream: #FAF7F2;
+  --grey-light: #F4F6FA;
+  --grey-mid: #E2DDD6;
+  --grey-text: #6B7A99;
+  --white: #ffffff;
+  --green: #10b981;
+  --shadow: 0 4px 24px rgba(15,31,69,0.08);
+  --shadow-lg: 0 12px 48px rgba(15,31,69,0.14);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); min-height: 100vh; }
+
+/* HEADER */
+.header { background: var(--navy); padding: 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+.header-inner { max-width: 1000px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.header-logo { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: 1px; text-transform: uppercase; }
+.header-tag { font-size: 11px; color: var(--gold); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; background: rgba(232,168,56,0.15); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(232,168,56,0.3); }
+.header-actions { display: flex; gap: 10px; align-items: center; }
+.btn-save { background: var(--red); color: white; border: none; padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
+.btn-save:hover { background: var(--red-light); transform: translateY(-1px); }
+.btn-download { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
+.btn-download:hover { background: rgba(255,255,255,0.2); }
+
+/* HERO */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); padding: 48px 24px 40px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 400px; height: 400px; border-radius: 50%; background: rgba(232,168,56,0.06); pointer-events: none; }
+.hero::after { content: ''; position: absolute; bottom: -30%; left: -5%; width: 300px; height: 300px; border-radius: 50%; background: rgba(196,30,58,0.08); pointer-events: none; }
+.hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 14px; }
+.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 12px; }
+.hero-title em { color: var(--gold); font-style: italic; }
+.hero-sub { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 560px; margin: 0 auto 28px; }
+.hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+
+/* PROGRESS BAR */
+.progress-bar-wrap { background: white; border-bottom: 1px solid var(--grey-mid); padding: 0; }
+.progress-inner { max-width: 1000px; margin: 0 auto; padding: 16px 24px; }
+.progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.progress-label span { font-size: 13px; font-weight: 600; color: var(--navy); }
+.progress-label .progress-pct { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--red); font-weight: 500; }
+.progress-track { height: 6px; background: var(--grey-mid); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--navy), var(--gold)); border-radius: 3px; transition: width .4s ease; width: 0%; }
+
+/* MAIN LAYOUT */
+.main { max-width: 1000px; margin: 0 auto; padding: 32px 24px 60px; }
+
+/* HOW TO USE */
+.how-to { background: white; border-radius: 16px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow); border-left: 4px solid var(--gold); }
+.how-to h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.how-to-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.how-item { background: var(--grey-light); border-radius: 10px; padding: 14px; }
+.how-item .how-icon { font-size: 18px; margin-bottom: 6px; display: block; }
+.how-item strong { font-size: 12px; font-weight: 700; color: var(--navy); display: block; margin-bottom: 3px; letter-spacing: 0.3px; }
+.how-item span { font-size: 12px; color: var(--grey-text); line-height: 1.4; }
+
+/* WEEK LABEL */
+.week-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.week-label { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--navy); }
+.week-input { border: 2px solid var(--grey-mid); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--navy); background: white; outline: none; transition: border-color .2s; }
+.week-input:focus { border-color: var(--navy); }
+
+/* DAY CARDS */
+.day-card { background: white; border-radius: 16px; margin-bottom: 20px; box-shadow: var(--shadow); overflow: hidden; }
+.day-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; user-select: none; transition: background .2s; }
+.day-header:hover { background: var(--grey-light); }
+.day-header-left { display: flex; align-items: center; gap: 14px; }
+.day-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: white; font-family: 'DM Mono', monospace; flex-shrink: 0; }
+.day-dot.complete { background: var(--green); }
+.day-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); }
+.day-summary { font-size: 12px; color: var(--grey-text); margin-top: 2px; }
+.day-header-right { display: flex; align-items: center; gap: 12px; }
+.day-hours-badge { background: var(--grey-light); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 700; color: var(--navy); font-family: 'DM Mono', monospace; }
+.day-hours-badge.has-data { background: rgba(232,168,56,0.15); color: var(--gold); border: 1px solid rgba(232,168,56,0.3); }
+.day-chevron { font-size: 16px; color: var(--grey-text); transition: transform .2s; }
+.day-card.open .day-chevron { transform: rotate(180deg); }
+.day-body { display: none; border-top: 1px solid var(--grey-mid); }
+.day-card.open .day-body { display: block; }
+
+/* TASK ROWS */
+.task-row { display: grid; grid-template-columns: 1fr 80px 90px 90px 90px 1fr; gap: 0; border-bottom: 1px solid var(--grey-light); }
+.task-row:last-child { border-bottom: none; }
+.task-header-row { background: var(--navy); }
+.task-header-row .th { padding: 10px 14px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase; }
+.task-cell { padding: 10px 12px; display: flex; align-items: center; }
+.task-cell input[type="text"], .task-cell input[type="number"] { width: 100%; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--navy); background: transparent; padding: 2px 0; }
+.task-cell input::placeholder { color: var(--grey-mid); }
+.task-cell input[type="number"] { font-family: 'DM Mono', monospace; text-align: center; -moz-appearance: textfield; }
+.task-cell input[type="number"]::-webkit-outer-spin-button,
+.task-cell input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+.task-cell.check-cell { justify-content: center; gap: 4px; }
+.task-cell select { border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--navy); background: transparent; cursor: pointer; width: 100%; }
+.task-row-even .task-cell { background: var(--grey-light); }
+.add-row-btn { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border: none; background: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--grey-text); font-weight: 500; transition: color .2s; width: 100%; text-align: left; }
+.add-row-btn:hover { color: var(--red); }
+.day-totals { display: grid; grid-template-columns: 1fr 80px 90px 90px 90px 1fr; background: rgba(232,168,56,0.08); border-top: 2px solid var(--gold); }
+.day-totals .dt-cell { padding: 12px 12px; display: flex; align-items: center; }
+.day-totals .dt-label { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 0.5px; text-transform: uppercase; }
+.day-totals .dt-val { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 700; color: var(--gold); text-align: center; width: 100%; }
+
+/* REFLECTION SECTION */
+.reflection { background: white; border-radius: 16px; padding: 28px; margin-bottom: 20px; box-shadow: var(--shadow); }
+.reflection h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.reflection .ref-sub { font-size: 14px; color: var(--grey-text); margin-bottom: 24px; }
+.ref-question { margin-bottom: 22px; }
+.ref-question label { display: block; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.ref-question .ref-hint { font-size: 12px; color: var(--grey-text); margin-bottom: 8px; display: block; }
+.ref-question textarea { width: 100%; border: 2px solid var(--grey-mid); border-radius: 10px; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy); resize: vertical; min-height: 90px; outline: none; transition: border-color .2s; line-height: 1.5; }
+.ref-question textarea:focus { border-color: var(--navy); }
+.ref-question textarea::placeholder { color: var(--grey-mid); }
+
+/* SUMMARY PANEL */
+.summary-panel { background: linear-gradient(135deg, var(--navy), var(--navy-light)); border-radius: 16px; padding: 28px; margin-bottom: 20px; color: white; }
+.summary-panel h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.summary-card { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+.summary-card .sc-num { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; color: var(--gold); line-height: 1; display: block; margin-bottom: 6px; }
+.summary-card .sc-label { font-size: 11px; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.cat-breakdown { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.cat-item { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+.cat-item .cat-bar-wrap { height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; margin: 8px 0; overflow: hidden; }
+.cat-item .cat-bar { height: 100%; border-radius: 2px; transition: width .5s ease; }
+.cat-item .cat-num { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500; color: white; }
+.cat-item .cat-label { font-size: 11px; color: rgba(255,255,255,0.6); font-weight: 600; letter-spacing: 0.3px; margin-top: 4px; }
+.cat-only-me .cat-bar { background: var(--red); }
+.cat-delegate .cat-bar { background: var(--gold); }
+.cat-stop .cat-bar { background: var(--green); }
+
+/* CTA STRIP */
+.cta-strip { background: var(--red); border-radius: 14px; padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.cta-strip p { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.5; max-width: 500px; }
+.cta-strip p strong { color: white; }
+.cta-strip a { background: white; color: var(--red); border-radius: 50px; padding: 10px 22px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: all .2s; display: inline-block; }
+.cta-strip a:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+/* PRINT / DOWNLOAD STYLES */
+.saved-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--navy); color: white; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-lg); opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+.saved-toast.show { opacity: 1; }
+
+@media (max-width: 700px) {
+  .task-row, .task-header-row, .day-totals { grid-template-columns: 1fr 60px 70px 70px; }
+  .task-row .task-cell:nth-child(6), .task-header-row .th:nth-child(6), .day-totals .dt-cell:nth-child(6) { display: none; }
+  .how-to-grid { grid-template-columns: 1fr 1fr; }
+  .cat-breakdown { grid-template-columns: 1fr 1fr 1fr; }
+  .header-inner { flex-wrap: wrap; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-logo">Smart Resource Solutions</div>
+    <div class="header-tag">Free Starter Tool</div>
+    <div class="header-actions">
+      <button class="btn-download" onclick="downloadCSV()">&#8595; Download CSV</button>
+      <button class="btn-save" onclick="saveData()">Save Progress</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <span class="hero-eyebrow">The Solo Superhero &bull; Time Audit</span>
+  <h1 class="hero-title">5-Day Time Audit <em>Tracker</em></h1>
+  <p class="hero-sub">Spend one week tracking everything. See exactly where your time goes &mdash; so you can decide what to hand over first.</p>
+  <div class="hero-badges">
+    <div class="badge">&#9889; Takes 5 minutes a day</div>
+    <div class="badge">&#128273; Your data stays in your browser</div>
+    <div class="badge">&#8595; Download your results anytime</div>
+  </div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-inner">
+    <div class="progress-label">
+      <span>Your week progress</span>
+      <span class="progress-pct" id="progressPct">0% complete</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="how-to">
+    <h3>&#128161; How to use this tracker</h3>
+    <div class="how-to-grid">
+      <div class="how-item"><span class="how-icon">&#128221;</span><strong>Task / Activity</strong><span>What did you actually do? Even small things count.</span></div>
+      <div class="how-item"><span class="how-icon">&#9201;</span><strong>Hours Spent</strong><span>Roughly how long did it take? Use decimals (0.5 = 30 mins).</span></div>
+      <div class="how-item"><span class="how-icon">&#128683;</span><strong>Only Me?</strong><span>Could only you do this, or could someone else with a good brief?</span></div>
+      <div class="how-item"><span class="how-icon">&#128101;</span><strong>Could Delegate?</strong><span>To a VA, freelancer, team member or better yet, automate it completely?</span></div>
+      <div class="how-item"><span class="how-icon">&#128465;</span><strong>Stop Doing?</strong><span>Is this task even worth doing at all?</span></div>
+      <div class="how-item"><span class="how-icon">&#128200;</span><strong>Watch the summary</strong><span>Your totals and categories update in real time below.</span></div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <span class="week-label">Week of:</span>
+    <input type="text" class="week-input" id="weekOf" placeholder="e.g. 28 April 2026" oninput="saveData()">
+  </div>
+
+  <!-- DAY CARDS -->
+  <div id="dayCards"></div>
+
+  <!-- SUMMARY -->
+  <div class="summary-panel">
+    <h2>&#128200; Your Week at a Glance</h2>
+    <div class="summary-grid">
+      <div class="summary-card"><span class="sc-num" id="totalHours">0.0</span><span class="sc-label">Total Hours Tracked</span></div>
+      <div class="summary-card"><span class="sc-num" id="totalTasks">0</span><span class="sc-label">Tasks Logged</span></div>
+      <div class="summary-card"><span class="sc-num" id="totalSaved" style="color:#86efac">0.0</span><span class="sc-label">Hrs You Could Reclaim</span></div>
+    </div>
+    <div class="cat-breakdown">
+      <div class="cat-item cat-only-me">
+        <div class="cat-num" id="onlyMeHrs">0.0</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" id="onlyMeBar" style="width:0%"></div></div>
+        <div class="cat-label">&#128683; Only You Can Do</div>
+      </div>
+      <div class="cat-item cat-delegate">
+        <div class="cat-num" id="delegateHrs">0.0</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" id="delegateBar" style="width:0%"></div></div>
+        <div class="cat-label">&#128101; Could Delegate</div>
+      </div>
+      <div class="cat-item cat-stop">
+        <div class="cat-num" id="stopHrs">0.0</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" id="stopBar" style="width:0%"></div></div>
+        <div class="cat-label">&#128465; Could Stop</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection">
+    <h2>&#127775; End-of-Week Reflection</h2>
+    <p class="ref-sub">Answer these three questions once you&rsquo;ve completed the tracker. Be honest &mdash; this is just for you.</p>
+    <div class="ref-question">
+      <label>1. What only I can do:</label>
+      <span class="ref-hint">Tasks that genuinely require your specific expertise, relationship or authority</span>
+      <textarea id="q1" placeholder="Write it here..." oninput="saveData()"></textarea>
+    </div>
+    <div class="ref-question">
+      <label>2. What I&rsquo;m going to hand over first:</label>
+      <span class="ref-hint">The task that would give you the most time back, the quickest</span>
+      <textarea id="q2" placeholder="Write it here..." oninput="saveData()"></textarea>
+    </div>
+    <div class="ref-question">
+      <label>3. The one thing I&rsquo;m going to stop doing entirely:</label>
+      <span class="ref-hint">Work that isn&rsquo;t worth doing at all &mdash; by you or anyone else</span>
+      <textarea id="q3" placeholder="Write it here..." oninput="saveData()"></textarea>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div style="width:100%">
+      <p style="margin-bottom:14px"><strong>What&rsquo;s next for you?</strong></p>
+      <p style="margin-bottom:10px">&#8594; <strong>Join the weekly Q&amp;A</strong> &mdash; get your questions answered and hear how other business owners are approaching this. <a href="#" onclick="openQAModal();return false;" style="display:inline-block;background:#fff;color:#C41E3A;padding:8px 18px;border-radius:50px;font-weight:700;text-decoration:none;font-size:13px;margin-top:6px;">Register here &rarr;</a></p>
+      <p style="margin-bottom:10px">&#8594; <strong>Need help now?</strong> Reply to this email or <a href="https://outlook.office.com/bookwithme/user/319e9c220c3247e398b495473a8666f2@smartresourcesolutions.com/meetingtype/RY63nrAHEE25o6KUTsdjjA2?anonymous&ep=mcard" style="display:inline-block;background:#fff;color:#C41E3A;padding:6px 16px;border-radius:50px;font-weight:700;text-decoration:none;font-size:13px;">Book a strategy call &rarr;</a> and we&rsquo;ll work through it together.</p>
+      <p>&#8594; <strong>Prefer to go at your own pace?</strong> Work through the tracker this week and note your three biggest time drains. That&rsquo;s your starting point.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="saved-toast" id="savedToast">&#10003; Progress saved</div>
+
+<script>
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+const STORAGE_KEY = 'srs_time_audit_v1';
+
+// Data structure
+var data = {
+  weekOf: '',
+  days: DAYS.map(d => ({ name: d, tasks: [emptyTask(), emptyTask(), emptyTask()] })),
+  q1: '', q2: '', q3: ''
+};
+
+function emptyTask() {
+  return { activity: '', hours: '', onlyMe: '', delegate: '', stop: '' };
+}
+
+// Build day cards
+function buildDayCards() {
+  var container = document.getElementById('dayCards');
+  container.innerHTML = '';
+  data.days.forEach(function(day, di) {
+    var card = document.createElement('div');
+    card.className = 'day-card' + (di === 0 ? ' open' : '');
+    card.id = 'day-' + di;
+    card.innerHTML = buildDayHTML(day, di);
+    container.appendChild(card);
+  });
+}
+
+function buildDayHTML(day, di) {
+  var tasks = day.tasks;
+  var totalHrs = tasks.reduce(function(s, t) { return s + (parseFloat(t.hours) || 0); }, 0);
+  var hasData = tasks.some(function(t) { return t.activity || t.hours; });
+  var allDone = tasks.every(function(t) { return t.activity && t.hours; }) && tasks.length > 0;
+
+  var rows = tasks.map(function(t, ti) {
+    var even = ti % 2 === 0 ? '' : ' task-row-even';
+    return '<div class="task-row' + even + '">' +
+      '<div class="task-cell"><input type="text" placeholder="What did you do?" value="' + esc(t.activity) + '" oninput="updateTask(' + di + ',' + ti + ',\'activity\',this.value)"></div>' +
+      '<div class="task-cell"><input type="number" min="0" max="24" step="0.25" placeholder="0" value="' + esc(t.hours) + '" oninput="updateTask(' + di + ',' + ti + ',\'hours\',this.value)"></div>' +
+      '<div class="task-cell check-cell"><select onchange="updateTask(' + di + ',' + ti + ',\'onlyMe\',this.value)"><option value="">-</option><option value="yes"' + sel(t.onlyMe,'yes') + '>Yes</option><option value="no"' + sel(t.onlyMe,'no') + '>No</option><option value="maybe"' + sel(t.onlyMe,'maybe') + '>Maybe</option></select></div>' +
+      '<div class="task-cell check-cell"><select onchange="updateTask(' + di + ',' + ti + ',\'delegate\',this.value)"><option value="">-</option><option value="yes"' + sel(t.delegate,'yes') + '>Yes</option><option value="no"' + sel(t.delegate,'no') + '>No</option></select></div>' +
+      '<div class="task-cell check-cell"><select onchange="updateTask(' + di + ',' + ti + ',\'stop\',this.value)"><option value="">-</option><option value="yes"' + sel(t.stop,'yes') + '>Yes</option><option value="no"' + sel(t.stop,'no') + '>No</option></select></div>' +
+      '<div class="task-cell"><input type="text" placeholder="Notes..." value="' + esc(t.notes||'') + '" oninput="updateTask(' + di + ',' + ti + ',\'notes\',this.value)"></div>' +
+      '</div>';
+  }).join('');
+
+  var delegateHrs = tasks.reduce(function(s,t){ return s + ((t.delegate==='yes'||t.stop==='yes') ? (parseFloat(t.hours)||0) : 0); }, 0);
+
+  return '<div class="day-header" onclick="toggleDay(' + di + ')">' +
+    '<div class="day-header-left">' +
+    '<div class="day-dot' + (allDone ? ' complete' : '') + '">' + (di+1) + '</div>' +
+    '<div><div class="day-name">' + day.name + '</div>' +
+    '<div class="day-summary">' + tasks.filter(function(t){return t.activity;}).length + ' tasks logged</div>' +
+    '</div></div>' +
+    '<div class="day-header-right">' +
+    '<div class="day-hours-badge' + (hasData?' has-data':'') + '">' + totalHrs.toFixed(1) + ' hrs</div>' +
+    '<div class="day-chevron">&#8964;</div>' +
+    '</div></div>' +
+    '<div class="day-body">' +
+    '<div class="task-row task-header-row">' +
+    '<div class="th">Task / Activity</div>' +
+    '<div class="th">Hrs</div>' +
+    '<div class="th">Only Me?</div>' +
+    '<div class="th">Delegate?</div>' +
+    '<div class="th">Stop?</div>' +
+    '<div class="th">Notes</div>' +
+    '</div>' +
+    rows +
+    '<button class="add-row-btn" onclick="addRow(' + di + ')">+ Add another task</button>' +
+    '<div class="day-totals">' +
+    '<div class="dt-cell"><span class="dt-label">Day Total</span></div>' +
+    '<div class="dt-cell"><span class="dt-val">' + totalHrs.toFixed(1) + '</span></div>' +
+    '<div class="dt-cell"></div>' +
+    '<div class="dt-cell"><span class="dt-val" style="color:var(--gold)">' + delegateHrs.toFixed(1) + '</span></div>' +
+    '<div class="dt-cell"></div>' +
+    '<div class="dt-cell"></div>' +
+    '</div>' +
+    '</div>';
+}
+
+function sel(val, opt) { return val === opt ? ' selected' : ''; }
+function esc(s) { return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function toggleDay(di) {
+  var card = document.getElementById('day-' + di);
+  card.classList.toggle('open');
+}
+
+function updateTask(di, ti, field, value) {
+  data.days[di].tasks[ti][field] = value;
+  refreshDay(di);
+  updateSummary();
+  saveData();
+}
+
+function addRow(di) {
+  data.days[di].tasks.push(emptyTask());
+  refreshDay(di);
+  updateSummary();
+}
+
+function refreshDay(di) {
+  var card = document.getElementById('day-' + di);
+  var wasOpen = card.classList.contains('open');
+  card.innerHTML = buildDayHTML(data.days[di], di);
+  if (wasOpen) card.classList.add('open');
+}
+
+function updateSummary() {
+  var allTasks = [];
+  data.days.forEach(function(d) { allTasks = allTasks.concat(d.tasks); });
+
+  var totalHrs = 0, onlyMe = 0, delegate = 0, stop = 0, taskCount = 0;
+  allTasks.forEach(function(t) {
+    var h = parseFloat(t.hours) || 0;
+    totalHrs += h;
+    if (t.activity) taskCount++;
+    if (t.onlyMe === 'yes') onlyMe += h;
+    if (t.delegate === 'yes') delegate += h;
+    if (t.stop === 'yes') stop += h;
+  });
+
+  var saved = delegate + stop;
+  var maxHrs = Math.max(onlyMe, delegate, stop, 1);
+
+  document.getElementById('totalHours').textContent = totalHrs.toFixed(1);
+  document.getElementById('totalTasks').textContent = taskCount;
+  document.getElementById('totalSaved').textContent = saved.toFixed(1);
+  document.getElementById('onlyMeHrs').textContent = onlyMe.toFixed(1);
+  document.getElementById('delegateHrs').textContent = delegate.toFixed(1);
+  document.getElementById('stopHrs').textContent = stop.toFixed(1);
+  document.getElementById('onlyMeBar').style.width = Math.min(100, onlyMe/maxHrs*100) + '%';
+  document.getElementById('delegateBar').style.width = Math.min(100, delegate/maxHrs*100) + '%';
+  document.getElementById('stopBar').style.width = Math.min(100, stop/maxHrs*100) + '%';
+
+  // Progress
+  var filled = allTasks.filter(function(t){return t.activity && t.hours;}).length;
+  var pct = Math.min(100, Math.round(filled / Math.max(1, allTasks.length) * 100));
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '% complete';
+}
+
+function saveData() {
+  data.weekOf = document.getElementById('weekOf').value;
+  data.q1 = document.getElementById('q1').value;
+  data.q2 = document.getElementById('q2').value;
+  data.q3 = document.getElementById('q3').value;
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  var toast = document.getElementById('savedToast');
+  toast.classList.add('show');
+  setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+}
+
+function loadData() {
+  try {
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      data = parsed;
+      // Ensure all days exist
+      while (data.days.length < 5) data.days.push({ name: DAYS[data.days.length], tasks: [emptyTask(), emptyTask(), emptyTask()] });
+    }
+  } catch(e) {}
+}
+
+function downloadCSV() {
+  var rows = [['Day','Task / Activity','Hours','Only Me?','Could Delegate?','Stop Doing?','Notes']];
+  data.days.forEach(function(day) {
+    day.tasks.forEach(function(t) {
+      if (t.activity || t.hours) {
+        rows.push([day.name, t.activity||'', t.hours||'', t.onlyMe||'', t.delegate||'', t.stop||'', t.notes||'']);
+      }
+    });
+  });
+  rows.push([]);
+  rows.push(['REFLECTIONS','']);
+  rows.push(['Only I can do:', data.q1||'']);
+  rows.push(['Hand over first:', data.q2||'']);
+  rows.push(['Stop entirely:', data.q3||'']);
+
+  var csv = rows.map(function(r){ return r.map(function(c){ return '"' + (c+'').replace(/"/g,'""') + '"'; }).join(','); }).join('\n');
+  var blob = new Blob([csv], {type:'text/csv'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = '5-Day-Time-Audit-Tracker.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Init
+loadData();
+buildDayCards();
+document.getElementById('weekOf').value = data.weekOf || '';
+document.getElementById('q1').value = data.q1 || '';
+document.getElementById('q2').value = data.q2 || '';
+document.getElementById('q3').value = data.q3 || '';
+updateSummary();
+</script>
+
+<!-- Q&A Sign-Up Modal -->
+<div id="qa-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,31,69,0.7);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:36px 32px;max-width:480px;width:90%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <button onclick="document.getElementById('qa-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#6B7A99;">&#10005;</button>
+    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#0F1F45;margin-bottom:8px;">Join the Weekly Q&A</div>
+    <p style="font-size:14px;color:#6B7A99;margin-bottom:24px;line-height:1.6;">We meet every <strong>Wednesday at 10am UK time</strong>. Register below and we'll send your Teams link straight away.</p>
+    
+    <!-- Zoho Form Fields (styled) -->
+    <form id="qa-zoho-form" style="display:flex;flex-direction:column;gap:14px;">
+      <input type="text" style="display:none;" name="xnQsjsdp" value="877e05ad89e3b55fcac5f0d3194a2c82a6bcc07b259914545ad1da1cb2a0a647">
+      <input type="hidden" name="zc_gad" id="zc_gad_qa" value="">
+      <input type="text" style="display:none;" name="xmIwtLD" value="147ff5dd0e7e2ade61a7d7bd2dbf6ef70810e360b3f0bd9c4bc8a9ca8fdd230b273b105473afe560372187e89231b420">
+      <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+      <input type="text" style="display:none;" name="returnURL" value="null">
+      <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
+      
+      <div style="display:flex;gap:12px;">
+        <input type="text" name="First Name" placeholder="First name *" required
+          style="flex:1;padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+        <input type="text" name="Last Name" placeholder="Last name *" required
+          style="flex:1;padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      </div>
+      <input type="email" name="Email" placeholder="Email address *" required
+        style="padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      <input type="text" name="Company" placeholder="Company name *" required
+        style="padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      
+      <button type="submit" id="qa-submit-btn"
+        style="background:#C41E3A;color:#fff;border:none;border-radius:50px;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;transition:all .2s;">
+        Send me the Teams link &rarr;
+      </button>
+      <p style="font-size:11px;color:#6B7A99;text-align:center;margin:0;">&#128274; No spam. Unsubscribe any time. UK GDPR compliant.</p>
+    </form>
+    
+    <!-- Success message (hidden until submitted) -->
+    <div id="qa-success" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:40px;margin-bottom:12px;">&#127881;</div>
+      <div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:#0F1F45;margin-bottom:8px;">You're registered!</div>
+      <p style="font-size:14px;color:#6B7A99;line-height:1.6;">Check your inbox — your Teams link is on its way. See you Wednesday at 10am!</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Q&A Modal
+function openQAModal() {
+  var modal = document.getElementById('qa-modal');
+  modal.style.display = 'flex';
+}
+
+// Close modal when clicking outside
+document.getElementById('qa-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
+
+// Handle Q&A form submission
+document.getElementById('qa-zoho-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('qa-submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  
+  var formData = new FormData(this);
+  
+  fetch('https://crm.zoho.eu/crm/WebToLeadForm', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).then(function() {
+    document.getElementById('qa-zoho-form').style.display = 'none';
+    document.getElementById('qa-success').style.display = 'block';
+    setTimeout(function() {
+      document.getElementById('qa-modal').style.display = 'none';
+      document.getElementById('qa-zoho-form').style.display = 'flex';
+      document.getElementById('qa-success').style.display = 'none';
+      btn.textContent = 'Send me the Teams link →';
+      btn.disabled = false;
+      document.getElementById('qa-zoho-form').reset();
+    }, 4000);
+  }).catch(function() {
+    btn.textContent = 'Send me the Teams link →';
+    btn.disabled = false;
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Role Clarity Template | Smart Resource Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1F45;--navy-light:#1a3570;--red:#C41E3A;--gold:#00B4D8;--fire:#E8613A;--cream:#FAF7F2;--gl:#F4F6FA;--gm:#E2DDD6;--gt:#6B7A99;--white:#fff;--green:#10b981;--shadow:0 4px 24px rgba(15,31,69,.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;}
+.hdr{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
+.hdr-inner{max-width:860px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.hdr-logo{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:1px;text-transform:uppercase;}
+.hdr-tag{font-size:11px;color:var(--fire);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(232,97,58,.15);padding:4px 12px;border-radius:20px;border:1px solid rgba(232,97,58,.3);}
+.btn-dl{background:var(--red);color:#fff;border:none;padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-dl:hover{background:#a01830;transform:translateY(-1px);}
+.btn-save{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.hero{background:linear-gradient(135deg,var(--navy),#2a1560);padding:48px 24px 40px;text-align:center;}
+.hero-eye{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:14px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,40px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero-title em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.75);line-height:1.6;max-width:520px;margin:0 auto 24px;}
+.hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;}
+.prog-wrap{background:#fff;border-bottom:1px solid var(--gm);}
+.prog-inner{max-width:860px;margin:0 auto;padding:14px 24px;}
+.prog-label{display:flex;justify-content:space-between;margin-bottom:7px;}
+.prog-label span{font-size:13px;font-weight:600;color:var(--navy);}
+.prog-pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--fire);}
+.prog-track{height:5px;background:var(--gm);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--fire),var(--gold));border-radius:3px;transition:width .4s ease;width:0%;}
+.main{max-width:860px;margin:0 auto;padding:32px 24px 60px;}
+.steps-nav{display:flex;gap:0;margin-bottom:28px;background:#fff;border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
+.step-tab{flex:1;padding:14px 8px;text-align:center;cursor:pointer;font-size:11px;font-weight:600;color:var(--gt);transition:all .2s;border-right:1px solid var(--gm);user-select:none;}
+.step-tab:last-child{border-right:none;}
+.step-tab.active{background:var(--navy);color:#fff;}
+.step-tab.done{background:rgba(16,185,129,.1);color:var(--green);}
+.step-tab .step-num{font-family:'DM Mono',monospace;font-size:10px;display:block;margin-bottom:3px;opacity:.7;}
+.section{background:#fff;border-radius:16px;padding:28px;margin-bottom:20px;box-shadow:var(--shadow);display:none;}
+.section.active{display:block;}
+.section h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.section .sec-sub{font-size:14px;color:var(--gt);margin-bottom:24px;line-height:1.5;}
+.field-group{margin-bottom:20px;}
+.field-group label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.field-group .hint{font-size:12px;color:var(--gt);margin-bottom:7px;display:block;}
+.field-group input[type=text],.field-group textarea{width:100%;border:2px solid var(--gm);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--navy);outline:none;transition:border-color .2s;background:#fff;}
+.field-group input:focus,.field-group textarea:focus{border-color:var(--navy);}
+.field-group textarea{resize:vertical;min-height:80px;line-height:1.5;}
+.field-group input::placeholder,.field-group textarea::placeholder{color:var(--gm);}
+.milestone-row{display:grid;grid-template-columns:100px 1fr;gap:12px;margin-bottom:10px;align-items:center;}
+.milestone-label{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--fire);background:rgba(232,97,58,.08);padding:8px 12px;border-radius:8px;text-align:center;}
+.milestone-texta{font-family:'DM Sans',sans-serif;border:2px solid var(--gm);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--navy);outline:none;transition:border-color .2s;background:#fff;width:100%;}
+.milestone-input:focus{border-color:var(--navy);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.trait-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.trait-card{background:var(--gl);border-radius:12px;padding:16px;}
+.trait-card h4{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:0.3px;display:flex;align-items:center;gap:6px;}
+.trait-card textarea{width:100%;border:2px solid var(--gm);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border-color .2s;background:#fff;resize:vertical;min-height:100px;}
+.trait-card textarea:focus{border-color:var(--navy);}
+.checklist-pre{display:flex;flex-direction:column;gap:10px;}
+.pre-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--gl);border-radius:10px;cursor:pointer;transition:background .2s;}
+.pre-item:hover{background:#edf0f8;}
+.pre-item input[type=checkbox]{flex-shrink:0;accent-color:var(--green);width:18px;height:18px;cursor:pointer;}
+.pre-item label{font-size:14px;color:var(--navy);cursor:pointer;line-height:1.4;flex:1;}
+.pre-item.checked{background:rgba(16,185,129,.08);}
+.pre-item.checked label{color:var(--green);}
+.nav-btns{display:flex;justify-content:space-between;margin-top:28px;gap:12px;}
+.btn-back{background:none;border:2px solid var(--gm);color:var(--gt);padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-back:hover{border-color:var(--navy);color:var(--navy);}
+.btn-next{background:var(--navy);color:#fff;border:none;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-next:hover{background:var(--fire);}
+.summary-box{background:linear-gradient(135deg,var(--navy),#2a1560);border-radius:16px;padding:28px;color:#fff;margin-bottom:20px;}
+.summary-box h2{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:20px;}
+.sum-item{background:rgba(255,255,255,.08);border-radius:10px;padding:14px 16px;margin-bottom:10px;border:1px solid rgba(255,255,255,.1);}
+.sum-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:5px;}
+.sum-val{font-size:14px;color:#fff;line-height:1.5;}
+.cta-strip{background:var(--red);border-radius:14px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.cta-strip p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.5;max-width:500px;}
+.cta-strip a{background:#fff;color:var(--red);border-radius:50px;padding:10px 22px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;display:inline-block;transition:all .2s;}
+.cta-strip a:hover{transform:translateY(-1px);}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.2);opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;}
+@media(max-width:600px){.two-col,.trait-grid{grid-template-columns:1fr;}.milestone-row{grid-template-columns:80px 1fr;}.steps-nav{overflow-x:auto;}.step-tab{min-width:70px;}}
+@media print{.hdr,.prog-wrap,.steps-nav,.nav-btns,.cta-strip,.hero,.toast{display:none!important;}.section{display:block!important;}.section:not(#step6){display:none!important;}.summary-box{background:#fff!important;color:#000!important;padding:0!important;}body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-logo">Smart Resource Solutions</div>
+    <div class="hdr-tag">Free Starter Tool</div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn-save" onclick="saveData()">Save</button>
+      <button class="btn-dl" onclick="window.print()">&#8595; Download PDF</button>
+    </div>
+  </div>
+</div>
+<div class="hero">
+  <span class="hero-eye">The Natural Leader &bull; Hiring</span>
+  <h1 class="hero-title">Role Clarity <em>Template</em></h1>
+  <p class="hero-sub">Get intentional before you hire. Clarity on what the role needs to achieve &mdash; and who will thrive in it &mdash; changes everything.</p>
+  <div class="hero-badges">
+    <div class="badge">&#128293; For Natural Leaders</div>
+    <div class="badge">&#128273; Stays in your browser</div>
+    <div class="badge">&#8595; Download anytime</div>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-inner">
+    <div class="prog-label"><span>Template progress</span><span class="prog-pct" id="progPct">0% complete</span></div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+  </div>
+</div>
+<div class="main">
+  <div class="steps-nav">
+    <div class="step-tab active" id="tab0" onclick="goStep(0)"><span class="step-num">STEP 1</span>Why Hire?</div>
+    <div class="step-tab" id="tab1" onclick="goStep(1)"><span class="step-num">STEP 2</span>90-Day Win</div>
+    <div class="step-tab" id="tab2" onclick="goStep(2)"><span class="step-num">STEP 3</span>Outcomes</div>
+    <div class="step-tab" id="tab3" onclick="goStep(3)"><span class="step-num">STEP 4</span>Who Thrives</div>
+    <div class="step-tab" id="tab4" onclick="goStep(4)"><span class="step-num">STEP 5</span>Deal-Breakers</div>
+    <div class="step-tab" id="tab5" onclick="goStep(5)"><span class="step-num">STEP 6</span>Pre-Advert</div>
+    <div class="step-tab" id="tab6" onclick="goStep(6)"><span class="step-num">DONE</span>Summary</div>
+  </div>
+
+  <div class="section active" id="step0">
+    <h2>&#128269; Why This Role Exists</h2>
+    <p class="sec-sub">Before anything else — be honest about why you&rsquo;re creating this role. Reactive hires usually start with no clear answer to this question.</p>
+    <div class="two-col">
+      <div class="field-group"><label>Role Title</label><input type="text" id="roleTitle" placeholder="e.g. Operations Manager" oninput="updateProg()"></div>
+      <div class="field-group"><label>Reports To</label><input type="text" id="reportsTo" placeholder="e.g. You / Founder" oninput="updateProg()"></div>
+    </div>
+    <div class="field-group"><label>Why are we creating / filling this role right now?</label><span class="hint">What specific problem does it solve? Be honest — &ldquo;I&rsquo;m overwhelmed&rdquo; is a valid answer.</span><textarea id="whyRole" rows="4" placeholder="e.g. I'm spending 60% of my time on operations and can't focus on growth. This role takes that off my plate..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>Could someone already in the business do this with support?</label><div class="quality-row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+      <label style="cursor:pointer;display:flex;align-items:center;gap:8px;padding:10px 16px;border:2px solid var(--gm);border-radius:50px;font-size:13px;font-weight:600;color:var(--gt);transition:all .2s;">
+        <input type="radio" name="internal" value="yes" style="accent-color:var(--fire);" onchange="updateProg()"> Yes — I should explore this first
+      </label>
+      <label style="cursor:pointer;display:flex;align-items:center;gap:8px;padding:10px 16px;border:2px solid var(--gm);border-radius:50px;font-size:13px;font-weight:600;color:var(--gt);transition:all .2s;">
+        <input type="radio" name="internal" value="no" style="accent-color:var(--fire);" onchange="updateProg()"> No — this needs a new hire
+      </label>
+    </div></div>
+    <div class="nav-btns"><span></span><button class="btn-next" onclick="goStep(1)">Next: 90-Day success &rarr;</button></div>
+  </div>
+
+  <div class="section" id="step1">
+    <h2>&#127942; What Success Looks Like in 90 Days</h2>
+    <p class="sec-sub">If this person is doing an excellent job in their first 90 days, what will be different? Be specific &mdash; concrete outcomes, not job description tasks.</p>
+    <div class="milestone-row"><div class="milestone-label">Day 30</div><textarea class="milestone-textat" id="day30" placeholder="e.g. Has completed handover, understands all current projects..." oninput="updateProg()" rows="4" style="resize:vertical;"></textarea></div>
+    <div class="milestone-row"><div class="milestone-label">Day 60</div><textarea class="milestone-textat" id="day60" placeholder="e.g. Running weekly ops meeting independently, flagging issues proactively..." oninput="updateProg()" rows="4" style="resize:vertical;"></textarea></div>
+    <div class="milestone-row"><div class="milestone-label">Day 90</div><textarea class="milestone-textat" id="day90" placeholder="e.g. I've reclaimed 15 hours a week. The ops function runs without me..." oninput="updateProg()" rows="4" style="resize:vertical;"></textarea></div>
+    <div class="nav-btns"><button class="btn-back" onclick="goStep(0)">&larr; Back</button><button class="btn-next" onclick="goStep(2)">Next: Key outcomes &rarr;</button></div>
+  </div>
+
+  <div class="section" id="step2">
+    <h2>&#127919; What Needs to Be Achieved</h2>
+    <p class="sec-sub">List the 3&ndash;5 most important outcomes this role is responsible for delivering. These are outcomes &mdash; not tasks or responsibilities.</p>
+    <div class="field-group"><label>Outcome 1 (most important)</label><input type="text" id="out1" placeholder="e.g. Operations run smoothly without founder involvement day-to-day" oninput="updateProg()"></div>
+    <div class="field-group"><label>Outcome 2</label><input type="text" id="out2" placeholder="e.g. Client projects delivered on time and to standard" oninput="updateProg()"></div>
+    <div class="field-group"><label>Outcome 3</label><input type="text" id="out3" placeholder="e.g. Team have clear priorities and aren't blocked waiting for decisions" oninput="updateProg()"></div>
+    <div class="field-group"><label>Outcome 4 (optional)</label><input type="text" id="out4" placeholder="" oninput="updateProg()"></div>
+    <div class="field-group"><label>Outcome 5 (optional)</label><input type="text" id="out5" placeholder="" oninput="updateProg()"></div>
+    <div class="nav-btns"><button class="btn-back" onclick="goStep(1)">&larr; Back</button><button class="btn-next" onclick="goStep(3)">Next: Who thrives here? &rarr;</button></div>
+  </div>
+
+  <div class="section" id="step3">
+    <h2>&#129309; What Kind of Person Will Thrive</h2>
+    <p class="sec-sub">Think about your culture, your pace, and your way of working. What qualities matter most here? Be honest about what your business is really like &mdash; not what you wish it was.</p>
+    <div class="trait-grid">
+      <div class="trait-card"><h4>&#9989; Must-have qualities</h4><textarea id="mustHave" placeholder="Non-negotiable. They must have these.&#10;e.g. Proactive communicator, comfortable with ambiguity, thrives in a fast-moving environment..." oninput="updateProg()"></textarea></div>
+      <div class="trait-card"><h4>&#11088; Nice-to-have qualities</h4><textarea id="niceHave" placeholder="Would be a bonus but not essential.&#10;e.g. Experience in our sector, existing network, second language..." oninput="updateProg()"></textarea></div>
+      <div class="trait-card"><h4>&#10060; Would struggle here if...</h4><textarea id="wouldStruggle" placeholder="Be honest. What kind of person wouldn't last?&#10;e.g. They need lots of structure, don't like uncertainty, prefer to wait for direction..." oninput="updateProg()"></textarea></div>
+    </div>
+    <div class="nav-btns"><button class="btn-back" onclick="goStep(2)">&larr; Back</button><button class="btn-next" onclick="goStep(4)">Next: Deal-breakers &rarr;</button></div>
+  </div>
+
+  <div class="section" id="step4">
+    <h2>&#128683; Deal-Breakers &amp; Red Flags</h2>
+    <p class="sec-sub">What would immediately disqualify someone from this role? Write these down now so you don&rsquo;t talk yourself into ignoring them in the interview.</p>
+    <div class="field-group"><label>Absolute deal-breakers</label><span class="hint">If you see any of these — stop the process, no matter how good they seem otherwise</span><textarea id="dealBreakers" rows="5" placeholder="e.g. History of leaving roles in under 6 months without good reason&#10;Can't give clear examples of taking initiative&#10;Talks about previous employers negatively..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>Red flags to probe in interview</label><span class="hint">These aren't automatic disqualifiers but need exploring</span><textarea id="redFlags" rows="4" placeholder="e.g. Gap in CV without clear explanation&#10;Vague answers about what they actually did vs. the team&#10;Over-reliance on previous manager for decisions..." oninput="updateProg()"></textarea></div>
+    <div class="nav-btns"><button class="btn-back" onclick="goStep(3)">&larr; Back</button><button class="btn-next" onclick="goStep(5)">Next: Pre-advert checklist &rarr;</button></div>
+  </div>
+
+  <div class="section" id="step5">
+    <h2>&#128203; Before You Post the Advert</h2>
+    <p class="sec-sub">Tick every box before you go live. If you can&rsquo;t tick them all &mdash; you&rsquo;re not ready to hire yet.</p>
+    <div class="checklist-pre" id="preChecks">
+      <div class="pre-item" onclick="togglePre(this)"><input type="checkbox"><label>I have completed all sections of this Role Clarity Template</label></div>
+      <div class="pre-item" onclick="togglePre(this)"><input type="checkbox"><label>I&rsquo;ve confirmed I have budget for this role</label></div>
+      <div class="pre-item" onclick="togglePre(this)"><input type="checkbox"><label>I know the salary range I&rsquo;m offering</label></div>
+      <div class="pre-item" onclick="togglePre(this)"><input type="checkbox"><label>I&rsquo;ve considered whether someone internally could do this with support</label></div>
+      <div class="pre-item" onclick="togglePre(this)"><input type="checkbox"><label>I know where I&rsquo;m going to advertise</label></div>
+      <div class="pre-item" onclick="togglePre(this)"><input type="checkbox"><label>I have time in my diary to review applications and interview</label></div>
+      <div class="pre-item" onclick="togglePre(this)"><input type="checkbox"><label>I have a plan for onboarding this person when they start</label></div>
+    </div>
+    <div id="preScore" style="margin-top:16px;padding:14px;background:var(--gl);border-radius:10px;font-size:14px;color:var(--navy);font-weight:600;"></div>
+    <div class="nav-btns"><button class="btn-back" onclick="goStep(4)">&larr; Back</button><button class="btn-next" onclick="goStep(6)">View my complete template &rarr;</button></div>
+  </div>
+
+  <div class="section" id="step6">
+    <div class="summary-box">
+      <h2>&#128293; Your Role Clarity Summary</h2>
+      <div id="summaryContent"></div>
+    </div>
+    <div class="cta-strip">
+    <div style="width:100%">
+      <p style="margin-bottom:14px"><strong>What's next for you?</strong></p>
+      <p style="margin-bottom:10px">&#8594; <strong>Join the weekly Q&amp;A</strong> &mdash; get your questions answered and hear how other business owners are approaching this. <a href="#" onclick="openQAModal();return false;" style="display:inline-block;background:#fff;color:#C41E3A;padding:8px 18px;border-radius:50px;font-weight:700;text-decoration:none;font-size:13px;margin-top:6px;">Register here &rarr;</a></p>
+      <p style="margin-bottom:10px">&#8594; <strong>Need help now?</strong> Reply to this email or <a href="https://outlook.office.com/bookwithme/user/319e9c220c3247e398b495473a8666f2@smartresourcesolutions.com/meetingtype/RY63nrAHEE25o6KUTsdjjA2?anonymous&ep=mcard" style="display:inline-block;background:#fff;color:#C41E3A;padding:6px 16px;border-radius:50px;font-weight:700;text-decoration:none;font-size:13px;">Book a strategy call &rarr;</a> and we&rsquo;ll work through it together.</p>
+      <p>&#8594; <strong>Prefer to go at your own pace?</strong> Work through the tool this week and note your three biggest actions. That&rsquo;s your starting point.</p>
+    </div>
+  </div>
+    <div style="text-align:center;margin-top:16px;"><button class="btn-back" onclick="goStep(5)">&larr; Edit template</button></div>
+  </div>
+</div>
+<div class="toast" id="toast">&#10003; Saved</div>
+<script>
+var SK='srs_role_clarity_v1';
+var cur=0;
+function val(id){return(document.getElementById(id)||{}).value||'';}
+function goStep(n){
+  document.querySelectorAll('.section').forEach(function(s,i){s.classList.toggle('active',i===n);});
+  document.querySelectorAll('.step-tab').forEach(function(t,i){t.classList.remove('active','done');if(i===n)t.classList.add('active');else if(i<n)t.classList.add('done');});
+  cur=n;if(n===6)buildSummary();updateProg();
+  window.scrollTo(0,0);try{window.parent.scrollTo(0,0);}catch(e){}
+}
+function togglePre(el){
+  var cb=el.querySelector('input');cb.checked=!cb.checked;
+  el.classList.toggle('checked',cb.checked);
+  var total=document.querySelectorAll('.pre-item').length;
+  var checked=document.querySelectorAll('.pre-item.checked').length;
+  var score=document.getElementById('preScore');
+  if(score){
+    if(checked===total)score.innerHTML='&#10003; All boxes ticked — you\'re ready to post!';
+    else score.innerHTML=checked+' of '+total+' complete. '+( total-checked)+' still to do before going live.';
+  }
+  updateProg();saveData();
+}
+function buildSummary(){
+  var html='';
+  function row(l,c){if(c&&c.trim())html+='<div class="sum-item"><div class="sum-label">'+l+'</div><div class="sum-val">'+c.replace(/\n/g,'<br>')+'</div></div>';}
+  var int=document.querySelector('input[name=internal]:checked');
+  row('Role Title',val('roleTitle'));row('Reports To',val('reportsTo'));
+  row('Why this role exists',val('whyRole'));
+  if(int)row('Internal candidate first?',int.value==='yes'?'Yes — explore internal options first':'No — new hire needed');
+  row('Day 30 success',val('day30'));row('Day 60 success',val('day60'));row('Day 90 success',val('day90'));
+  var outs=[val('out1'),val('out2'),val('out3'),val('out4'),val('out5')].filter(Boolean);
+  if(outs.length)row('Key outcomes required',outs.map(function(o,i){return (i+1)+'. '+o;}).join('\n'));
+  row('Must-have qualities',val('mustHave'));row('Nice-to-have',val('niceHave'));row('Would struggle if',val('wouldStruggle'));
+  row('Deal-breakers',val('dealBreakers'));row('Red flags to probe',val('redFlags'));
+  var pres=Array.from(document.querySelectorAll('.pre-item.checked')).map(function(el){return el.querySelector('label').textContent;});
+  if(pres.length)row('Pre-advert checks completed',pres.join('\n'));
+  document.getElementById('summaryContent').innerHTML=html||'<div class="sum-item"><div class="sum-val" style="opacity:.6">Complete the previous steps to see your role clarity summary here.</div></div>';
+}
+function updateProg(){
+  var fields=['roleTitle','day30','out1','mustHave','dealBreakers'];
+  var filled=fields.filter(function(f){return val(f).trim();}).length;
+  var pct=Math.round(filled/fields.length*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progPct').textContent=pct+'% complete';
+  saveData();
+}
+function saveData(){
+  try{
+    var d={step:cur};
+    ['roleTitle','reportsTo','whyRole','day30','day60','day90','out1','out2','out3','out4','out5','mustHave','niceHave','wouldStruggle','dealBreakers','redFlags'].forEach(function(f){d[f]=val(f);});
+    var int=document.querySelector('input[name=internal]:checked');d.internal=int?int.value:'';
+    localStorage.setItem(SK,JSON.stringify(d));
+  }catch(e){}
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1800);
+}
+function loadData(){
+  try{
+    var d=JSON.parse(localStorage.getItem(SK)||'{}');
+    ['roleTitle','reportsTo','whyRole','day30','day60','day90','out1','out2','out3','out4','out5','mustHave','niceHave','wouldStruggle','dealBreakers','redFlags'].forEach(function(f){var el=document.getElementById(f);if(el&&d[f])el.value=d[f];});
+    if(d.internal){var r=document.querySelector('input[name=internal][value="'+d.internal+'"]');if(r)r.checked=true;}
+  }catch(e){}
+}
+loadData();updateProg();
+</script>
+
+<!-- Q&A Sign-Up Modal -->
+<div id="qa-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,31,69,0.7);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:36px 32px;max-width:480px;width:90%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <button onclick="document.getElementById('qa-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#6B7A99;">&#10005;</button>
+    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#0F1F45;margin-bottom:8px;">Join the Weekly Q&A</div>
+    <p style="font-size:14px;color:#6B7A99;margin-bottom:24px;line-height:1.6;">We meet every <strong>Wednesday at 10am UK time</strong>. Register below and we'll send your Teams link straight away.</p>
+    
+    <!-- Zoho Form Fields (styled) -->
+    <form id="qa-zoho-form" style="display:flex;flex-direction:column;gap:14px;">
+      <input type="text" style="display:none;" name="xnQsjsdp" value="877e05ad89e3b55fcac5f0d3194a2c82a6bcc07b259914545ad1da1cb2a0a647">
+      <input type="hidden" name="zc_gad" id="zc_gad_qa" value="">
+      <input type="text" style="display:none;" name="xmIwtLD" value="147ff5dd0e7e2ade61a7d7bd2dbf6ef70810e360b3f0bd9c4bc8a9ca8fdd230b273b105473afe560372187e89231b420">
+      <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+      <input type="text" style="display:none;" name="returnURL" value="null">
+      <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
+      
+      <div style="display:flex;gap:12px;">
+        <input type="text" name="First Name" placeholder="First name *" required
+          style="flex:1;padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+        <input type="text" name="Last Name" placeholder="Last name *" required
+          style="flex:1;padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      </div>
+      <input type="email" name="Email" placeholder="Email address *" required
+        style="padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      <input type="text" name="Company" placeholder="Company name *" required
+        style="padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      
+      <button type="submit" id="qa-submit-btn"
+        style="background:#C41E3A;color:#fff;border:none;border-radius:50px;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;transition:all .2s;">
+        Send me the Teams link &rarr;
+      </button>
+      <p style="font-size:11px;color:#6B7A99;text-align:center;margin:0;">&#128274; No spam. Unsubscribe any time. UK GDPR compliant.</p>
+    </form>
+    
+    <!-- Success message (hidden until submitted) -->
+    <div id="qa-success" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:40px;margin-bottom:12px;">&#127881;</div>
+      <div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:#0F1F45;margin-bottom:8px;">You're registered!</div>
+      <p style="font-size:14px;color:#6B7A99;line-height:1.6;">Check your inbox — your Teams link is on its way. See you Wednesday at 10am!</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Q&A Modal
+function openQAModal() {
+  var modal = document.getElementById('qa-modal');
+  modal.style.display = 'flex';
+}
+
+// Close modal when clicking outside
+document.getElementById('qa-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
+
+// Handle Q&A form submission
+document.getElementById('qa-zoho-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('qa-submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  
+  var formData = new FormData(this);
+  
+  fetch('https://crm.zoho.eu/crm/WebToLeadForm', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).then(function() {
+    document.getElementById('qa-zoho-form').style.display = 'none';
+    document.getElementById('qa-success').style.display = 'block';
+    setTimeout(function() {
+      document.getElementById('qa-modal').style.display = 'none';
+      document.getElementById('qa-zoho-form').style.display = 'flex';
+      document.getElementById('qa-success').style.display = 'none';
+      btn.textContent = 'Send me the Teams link →';
+      btn.disabled = false;
+      document.getElementById('qa-zoho-form').reset();
+    }, 4000);
+  }).catch(function() {
+    btn.textContent = 'Send me the Teams link →';
+    btn.disabled = false;
+  });
+});
+</script>
+</body>
+</html>

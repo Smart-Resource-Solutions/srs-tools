@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Delegation Brief Template | Smart Resource Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1F45;--navy-light:#1a3570;--red:#C41E3A;--gold:#00B4D8;--heart:#E8739A;--cream:#FAF7F2;--gl:#F4F6FA;--gm:#E2DDD6;--gt:#6B7A99;--white:#fff;--green:#10b981;--shadow:0 4px 24px rgba(15,31,69,.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;}
+.hdr{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
+.hdr-inner{max-width:860px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.hdr-logo{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:1px;text-transform:uppercase;}
+.hdr-tag{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(232,168,56,.15);padding:4px 12px;border-radius:20px;border:1px solid rgba(232,168,56,.3);}
+.btn-dl{background:var(--red);color:#fff;border:none;padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-dl:hover{background:#a01830;transform:translateY(-1px);}
+.btn-save{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-save:hover{background:rgba(255,255,255,.2);}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy-light));padding:48px 24px 40px;text-align:center;}
+.hero-eye{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--heart);display:block;margin-bottom:14px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,40px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero-title em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.75);line-height:1.6;max-width:520px;margin:0 auto 24px;}
+.hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;}
+.prog-wrap{background:#fff;border-bottom:1px solid var(--gm);padding:0;}
+.prog-inner{max-width:860px;margin:0 auto;padding:14px 24px;}
+.prog-label{display:flex;justify-content:space-between;margin-bottom:7px;}
+.prog-label span{font-size:13px;font-weight:600;color:var(--navy);}
+.prog-pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--heart);}
+.prog-track{height:5px;background:var(--gm);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--heart),var(--gold));border-radius:3px;transition:width .4s ease;width:0%;}
+.main{max-width:860px;margin:0 auto;padding:32px 24px 60px;}
+.steps-nav{display:flex;gap:0;margin-bottom:28px;background:#fff;border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
+.step-tab{flex:1;padding:14px 10px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--gt);transition:all .2s;border-right:1px solid var(--gm);user-select:none;}
+.step-tab:last-child{border-right:none;}
+.step-tab.active{background:var(--navy);color:#fff;}
+.step-tab.done{background:rgba(16,185,129,.1);color:var(--green);}
+.step-tab .step-num{font-family:'DM Mono',monospace;font-size:10px;display:block;margin-bottom:3px;opacity:.7;}
+.section{background:#fff;border-radius:16px;padding:28px;margin-bottom:20px;box-shadow:var(--shadow);display:none;}
+.section.active{display:block;}
+.section h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.section .sec-sub{font-size:14px;color:var(--gt);margin-bottom:24px;line-height:1.5;}
+.field-group{margin-bottom:20px;}
+.field-group label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.field-group .hint{font-size:12px;color:var(--gt);margin-bottom:7px;display:block;}
+.field-group input[type=text],.field-group input[type=date],.field-group textarea,.field-group select{width:100%;border:2px solid var(--gm);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--navy);outline:none;transition:border-color .2s;background:#fff;}
+.field-group input:focus,.field-group textarea:focus,.field-group select:focus{border-color:var(--navy);}
+.field-group textarea{resize:vertical;min-height:80px;line-height:1.5;}
+.field-group input::placeholder,.field-group textarea::placeholder{color:var(--gm);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.quality-row{display:flex;gap:10px;flex-wrap:wrap;}
+.quality-opt{cursor:pointer;}
+.quality-opt input{display:none;}
+.quality-opt span{display:block;padding:8px 16px;border:2px solid var(--gm);border-radius:50px;font-size:13px;font-weight:600;color:var(--gt);transition:all .2s;}
+.quality-opt input:checked+span{border-color:var(--heart);background:rgba(232,115,154,.08);color:var(--heart);}
+.checklist{display:flex;flex-direction:column;gap:10px;}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--gl);border-radius:10px;cursor:pointer;}
+.check-item input[type=checkbox]{margin-top:2px;flex-shrink:0;accent-color:var(--green);width:16px;height:16px;cursor:pointer;}
+.check-item label{font-size:14px;color:var(--navy);cursor:pointer;line-height:1.4;}
+.check-item.checked{background:rgba(16,185,129,.08);}
+.nav-btns{display:flex;justify-content:space-between;margin-top:28px;gap:12px;}
+.btn-back{background:none;border:2px solid var(--gm);color:var(--gt);padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-back:hover{border-color:var(--navy);color:var(--navy);}
+.btn-next{background:var(--navy);color:#fff;border:none;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-next:hover{background:var(--red);}
+.summary-box{background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:16px;padding:28px;color:#fff;margin-bottom:20px;}
+.summary-box h2{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:20px;}
+.sum-item{background:rgba(255,255,255,.08);border-radius:10px;padding:14px 16px;margin-bottom:10px;border:1px solid rgba(255,255,255,.1);}
+.sum-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:5px;}
+.sum-val{font-size:14px;color:#fff;line-height:1.5;}
+.cta-strip{background:var(--red);border-radius:14px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.cta-strip p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.5;max-width:500px;}
+.cta-strip p strong{color:#fff;}
+.cta-strip a{background:#fff;color:var(--red);border-radius:50px;padding:10px 22px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .2s;display:inline-block;}
+.cta-strip a:hover{transform:translateY(-1px);}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.2);opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;}
+@media(max-width:600px){.two-col{grid-template-columns:1fr;}.steps-nav{overflow-x:auto;}.step-tab{min-width:80px;}.hdr-inner{gap:8px;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-logo">Smart Resource Solutions</div>
+    <div class="hdr-tag">Free Starter Tool</div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn-save" onclick="saveData()">Save</button>
+      <button class="btn-dl" onclick="downloadPrint()">&#8595; Download PDF</button>
+    </div>
+  </div>
+</div>
+<div class="hero">
+  <span class="hero-eye">The Caring Perfectionist &bull; Delegation</span>
+  <h1 class="hero-title">Delegation Brief <em>Template</em></h1>
+  <p class="hero-sub">Write one clear brief and watch what changes. The clearer your brief, the less you&rsquo;ll need to check in.</p>
+  <div class="hero-badges">
+    <div class="badge">&#128155; For Caring Perfectionists</div>
+    <div class="badge">&#128273; Stays in your browser</div>
+    <div class="badge">&#8595; Download anytime</div>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-inner">
+    <div class="prog-label"><span>Brief progress</span><span class="prog-pct" id="progPct">0% complete</span></div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+  </div>
+</div>
+<div class="main">
+  <div class="steps-nav">
+    <div class="step-tab active" id="tab0" onclick="goStep(0)"><span class="step-num">STEP 1</span>Overview</div>
+    <div class="step-tab" id="tab1" onclick="goStep(1)"><span class="step-num">STEP 2</span>Done = ?</div>
+    <div class="step-tab" id="tab2" onclick="goStep(2)"><span class="step-num">STEP 3</span>Standard</div>
+    <div class="step-tab" id="tab3" onclick="goStep(3)"><span class="step-num">STEP 4</span>Resources</div>
+    <div class="step-tab" id="tab4" onclick="goStep(4)"><span class="step-num">STEP 5</span>Check-ins</div>
+    <div class="step-tab" id="tab5" onclick="goStep(5)"><span class="step-num">STEP 6</span>Summary</div>
+  </div>
+
+  <div class="section active" id="step0">
+    <h2>&#128221; Task Overview</h2>
+    <p class="sec-sub">Start by getting clear on the basics. Who is doing what, and when does it need to be done?</p>
+    <div class="field-group"><label>Task Name</label><input type="text" id="taskName" placeholder="e.g. Write the April newsletter" oninput="updateProg()"></div>
+    <div class="two-col">
+      <div class="field-group"><label>Who is responsible?</label><input type="text" id="responsible" placeholder="Name or role" oninput="updateProg()"></div>
+      <div class="field-group"><label>Deadline</label><input type="date" id="deadline" oninput="updateProg()"></div>
+    </div>
+    <div class="field-group"><label>Why does this task matter right now?</label><span class="hint">Context helps people prioritise properly</span><textarea id="why" placeholder="e.g. We need this ready before the client event next week..." oninput="updateProg()"></textarea></div>
+    <div class="nav-btns"><span></span><button class="btn-next" onclick="goStep(1)">Next: What does done look like? &rarr;</button></div>
+  </div>
+
+  <div class="section" id="step1">
+    <h2>&#9989; What &ldquo;Done&rdquo; Looks Like</h2>
+    <p class="sec-sub">Describe the finished result in concrete terms. What will you see, read, or receive when this is complete? Be specific — vague definitions create vague results.</p>
+    <div class="field-group"><label>When this task is complete, I will have / see / receive...</label><textarea id="done" rows="5" placeholder="e.g. A 400-word newsletter draft, with a subject line, formatted correctly, in our email tool, ready to review..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>What does this task NOT include?</label><span class="hint">Be clear about scope so nothing unexpected lands back on your desk</span><textarea id="notInclude" placeholder="e.g. This does NOT include sourcing images or scheduling — just the copy..." oninput="updateProg()"></textarea></div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goStep(0)">&larr; Back</button>
+      <button class="btn-next" onclick="goStep(2)">Next: The standard required &rarr;</button>
+    </div>
+  </div>
+
+  <div class="section" id="step2">
+    <h2>&#11088; The Standard Required</h2>
+    <p class="sec-sub">This is where most delegation breaks down. Be honest about what level of quality this task actually needs.</p>
+    <div class="field-group">
+      <label>Quality level required</label>
+      <div class="quality-row">
+        <label class="quality-opt"><input type="radio" name="quality" value="draft" onchange="updateProg()"><span>&#128221; Rough draft</span></label>
+        <label class="quality-opt"><input type="radio" name="quality" value="good" onchange="updateProg()"><span>&#128077; Good enough</span></label>
+        <label class="quality-opt"><input type="radio" name="quality" value="client" onchange="updateProg()"><span>&#128084; Client-ready</span></label>
+        <label class="quality-opt"><input type="radio" name="quality" value="publish" onchange="updateProg()"><span>&#11088; Publication standard</span></label>
+      </div>
+    </div>
+    <div class="field-group"><label>Specific standards to maintain</label><span class="hint">Tone, format, brand guidelines, anything that matters to you</span><textarea id="standards" placeholder="e.g. Friendly but professional tone. No jargon. Must reference the RECRUIT System by name..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>Common mistakes to avoid</label><span class="hint">What have you had to fix before? Say it upfront.</span><textarea id="mistakes" placeholder="e.g. Don't use too many exclamation marks. Don't go over 500 words..." oninput="updateProg()"></textarea></div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goStep(1)">&larr; Back</button>
+      <button class="btn-next" onclick="goStep(3)">Next: Resources &amp; context &rarr;</button>
+    </div>
+  </div>
+
+  <div class="section" id="step3">
+    <h2>&#128214; Resources &amp; Context</h2>
+    <p class="sec-sub">Give them everything they need before they start — not after they get stuck.</p>
+    <div class="field-group"><label>Access or tools needed</label><textarea id="access" placeholder="e.g. Access to Mailchimp, the brand folder in Google Drive..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>Files or documents to refer to</label><textarea id="files" placeholder="e.g. Last month's newsletter, brand guidelines PDF, content calendar..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>People they can ask for help</label><textarea id="people" placeholder="e.g. Ask Sarah for the stats, check with me before contacting any clients..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>Background context they need to know</label><textarea id="context" placeholder="e.g. This replaces our old update email. The audience is existing clients, not prospects..." oninput="updateProg()"></textarea></div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goStep(2)">&larr; Back</button>
+      <button class="btn-next" onclick="goStep(4)">Next: Check-in points &rarr;</button>
+    </div>
+  </div>
+
+  <div class="section" id="step4">
+    <h2>&#128197; Check-In Points</h2>
+    <p class="sec-sub">Agree check-ins upfront. This removes the need to hover — and gives them confidence to move forward without you.</p>
+    <div class="two-col">
+      <div class="field-group"><label>Midpoint check-in date</label><input type="date" id="midpoint" oninput="updateProg()"></div>
+      <div class="field-group"><label>Final handover date</label><input type="date" id="handover" oninput="updateProg()"></div>
+    </div>
+    <div class="field-group"><label>How should they flag if they&rsquo;re stuck?</label><textarea id="stuck" placeholder="e.g. Message me on Teams — don't wait until it's too late to fix..." oninput="updateProg()"></textarea></div>
+    <div class="field-group"><label>How will you confirm it&rsquo;s complete and meets the standard?</label><div class="checklist" id="signoff">
+      <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><label>I will review against the &ldquo;done looks like&rdquo; description</label></div>
+      <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><label>I will confirm the standard has been met before marking complete</label></div>
+      <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><label>I will give specific written feedback if changes are needed</label></div>
+      <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><label>I will not take the task back — I will ask for revisions instead</label></div>
+    </div></div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goStep(3)">&larr; Back</button>
+      <button class="btn-next" onclick="goStep(5)">View my complete brief &rarr;</button>
+    </div>
+  </div>
+
+  <div class="section" id="step5">
+    <div class="summary-box">
+      <h2>&#129395; Your Complete Delegation Brief</h2>
+      <div id="summaryContent"></div>
+    </div>
+    <div class="cta-strip">
+    <div style="width:100%">
+      <p style="margin-bottom:14px"><strong>What's next for you?</strong></p>
+      <p style="margin-bottom:10px">&#8594; <strong>Join the weekly Q&amp;A</strong> &mdash; get your questions answered and hear how other business owners are approaching this. <a href="#" onclick="openQAModal();return false;" style="display:inline-block;background:#fff;color:#C41E3A;padding:8px 18px;border-radius:50px;font-weight:700;text-decoration:none;font-size:13px;margin-top:6px;">Register here &rarr;</a></p>
+      <p style="margin-bottom:10px">&#8594; <strong>Need help now?</strong> Reply to this email or <a href="https://outlook.office.com/bookwithme/user/319e9c220c3247e398b495473a8666f2@smartresourcesolutions.com/meetingtype/RY63nrAHEE25o6KUTsdjjA2?anonymous&ep=mcard" style="display:inline-block;background:#fff;color:#C41E3A;padding:6px 16px;border-radius:50px;font-weight:700;text-decoration:none;font-size:13px;">Book a strategy call &rarr;</a> and we&rsquo;ll work through it together.</p>
+      <p>&#8594; <strong>Prefer to go at your own pace?</strong> Work through the tool this week and note your three biggest actions. That&rsquo;s your starting point.</p>
+    </div>
+  </div>
+    <div style="text-align:center;margin-top:16px;">
+      <button class="btn-back" onclick="goStep(4)">&larr; Edit brief</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">&#10003; Saved</div>
+<script>
+var SK='srs_delegation_v1';
+var cur=0;
+var steps=['Overview','Done = ?','Standard','Resources','Check-ins','Summary'];
+
+function goStep(n){
+  document.querySelectorAll('.section').forEach(function(s,i){
+    s.classList.toggle('active',i===n);
+  });
+  document.querySelectorAll('.step-tab').forEach(function(t,i){
+    t.classList.remove('active','done');
+    if(i===n)t.classList.add('active');
+    else if(i<n)t.classList.add('done');
+  });
+  cur=n;
+  if(n===5)buildSummary();
+  updateProg();
+  window.scrollTo(0,0);
+  try{window.parent.scrollTo(0,0);}catch(e){}
+}
+
+function toggleCheck(el){
+  var cb=el.querySelector('input[type=checkbox]');
+  cb.checked=!cb.checked;
+  el.classList.toggle('checked',cb.checked);
+}
+
+function val(id){return(document.getElementById(id)||{}).value||'';}
+
+function buildSummary(){
+  var quality=document.querySelector('input[name=quality]:checked');
+  var qLabel=quality?{draft:'Rough draft',good:'Good enough',client:'Client-ready',publish:'Publication standard'}[quality.value]:'Not specified';
+  var deadline=val('deadline');
+  var midpoint=val('midpoint');
+  var handover=val('handover');
+  function fmt(d){if(!d)return'Not set';var p=d.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+  var html='';
+  function row(label,content){if(content&&content.trim())html+='<div class="sum-item"><div class="sum-label">'+label+'</div><div class="sum-val">'+content.replace(/\n/g,'<br>')+'</div></div>';}
+  row('Task',val('taskName'));
+  row('Who is responsible',val('responsible'));
+  row('Deadline',fmt(deadline));
+  row('Why this matters',val('why'));
+  row('What done looks like',val('done'));
+  row('What this does NOT include',val('notInclude'));
+  row('Quality level required',qLabel);
+  row('Standards to maintain',val('standards'));
+  row('Mistakes to avoid',val('mistakes'));
+  row('Access needed',val('access'));
+  row('Files to refer to',val('files'));
+  row('People to ask for help',val('people'));
+  row('Background context',val('context'));
+  row('Midpoint check-in',fmt(midpoint));
+  row('Final handover',fmt(handover));
+  row('If stuck',val('stuck'));
+  document.getElementById('summaryContent').innerHTML=html||'<div class="sum-item"><div class="sum-val" style="opacity:.6">Fill in the previous steps to see your complete brief here.</div></div>';
+}
+
+function updateProg(){
+  var fields=['taskName','responsible','deadline','done','standards'];
+  var filled=fields.filter(function(f){return val(f).trim();}).length;
+  var pct=Math.round(filled/fields.length*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progPct').textContent=pct+'% complete';
+  saveData();
+}
+
+function saveData(){
+  try{
+    var d={step:cur,taskName:val('taskName'),responsible:val('responsible'),deadline:val('deadline'),why:val('why'),done:val('done'),notInclude:val('notInclude'),standards:val('standards'),mistakes:val('mistakes'),access:val('access'),files:val('files'),people:val('people'),context:val('context'),midpoint:val('midpoint'),handover:val('handover'),stuck:val('stuck')};
+    var q=document.querySelector('input[name=quality]:checked');
+    d.quality=q?q.value:'';
+    localStorage.setItem(SK,JSON.stringify(d));
+  }catch(e){}
+  var t=document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},1800);
+}
+
+function loadData(){
+  try{
+    var d=JSON.parse(localStorage.getItem(SK)||'{}');
+    var fields=['taskName','responsible','deadline','why','done','notInclude','standards','mistakes','access','files','people','context','midpoint','handover','stuck'];
+    fields.forEach(function(f){var el=document.getElementById(f);if(el&&d[f])el.value=d[f];});
+    if(d.quality){var q=document.querySelector('input[name=quality][value="'+d.quality+'"]');if(q)q.checked=true;}
+  }catch(e){}
+}
+
+function downloadPrint(){
+  buildSummary();
+  window.print();
+}
+
+loadData();
+updateProg();
+</script>
+<style>
+@media print{
+  .hdr,.prog-wrap,.steps-nav,.nav-btns,.cta-strip,.btn-dl,.btn-save,.hero,.toast{display:none!important;}
+  .section{display:block!important;}
+  .section:not(#step5){display:none!important;}
+  .summary-box{background:#fff!important;color:#000!important;padding:0!important;}
+  body{background:#fff;}
+}
+</style>
+
+<!-- Q&A Sign-Up Modal -->
+<div id="qa-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,31,69,0.7);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:36px 32px;max-width:480px;width:90%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <button onclick="document.getElementById('qa-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#6B7A99;">&#10005;</button>
+    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#0F1F45;margin-bottom:8px;">Join the Weekly Q&A</div>
+    <p style="font-size:14px;color:#6B7A99;margin-bottom:24px;line-height:1.6;">We meet every <strong>Wednesday at 10am UK time</strong>. Register below and we'll send your Teams link straight away.</p>
+    
+    <!-- Zoho Form Fields (styled) -->
+    <form id="qa-zoho-form" style="display:flex;flex-direction:column;gap:14px;">
+      <input type="text" style="display:none;" name="xnQsjsdp" value="877e05ad89e3b55fcac5f0d3194a2c82a6bcc07b259914545ad1da1cb2a0a647">
+      <input type="hidden" name="zc_gad" id="zc_gad_qa" value="">
+      <input type="text" style="display:none;" name="xmIwtLD" value="147ff5dd0e7e2ade61a7d7bd2dbf6ef70810e360b3f0bd9c4bc8a9ca8fdd230b273b105473afe560372187e89231b420">
+      <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+      <input type="text" style="display:none;" name="returnURL" value="null">
+      <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
+      
+      <div style="display:flex;gap:12px;">
+        <input type="text" name="First Name" placeholder="First name *" required
+          style="flex:1;padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+        <input type="text" name="Last Name" placeholder="Last name *" required
+          style="flex:1;padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      </div>
+      <input type="email" name="Email" placeholder="Email address *" required
+        style="padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      <input type="text" name="Company" placeholder="Company name *" required
+        style="padding:12px 14px;border:1.5px solid #E2DDD6;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;">
+      
+      <button type="submit" id="qa-submit-btn"
+        style="background:#C41E3A;color:#fff;border:none;border-radius:50px;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;transition:all .2s;">
+        Send me the Teams link &rarr;
+      </button>
+      <p style="font-size:11px;color:#6B7A99;text-align:center;margin:0;">&#128274; No spam. Unsubscribe any time. UK GDPR compliant.</p>
+    </form>
+    
+    <!-- Success message (hidden until submitted) -->
+    <div id="qa-success" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:40px;margin-bottom:12px;">&#127881;</div>
+      <div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:#0F1F45;margin-bottom:8px;">You're registered!</div>
+      <p style="font-size:14px;color:#6B7A99;line-height:1.6;">Check your inbox — your Teams link is on its way. See you Wednesday at 10am!</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Q&A Modal
+function openQAModal() {
+  var modal = document.getElementById('qa-modal');
+  modal.style.display = 'flex';
+}
+
+// Close modal when clicking outside
+document.getElementById('qa-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
+
+// Handle Q&A form submission
+document.getElementById('qa-zoho-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('qa-submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  
+  var formData = new FormData(this);
+  
+  fetch('https://crm.zoho.eu/crm/WebToLeadForm', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).then(function() {
+    document.getElementById('qa-zoho-form').style.display = 'none';
+    document.getElementById('qa-success').style.display = 'block';
+    setTimeout(function() {
+      document.getElementById('qa-modal').style.display = 'none';
+      document.getElementById('qa-zoho-form').style.display = 'flex';
+      document.getElementById('qa-success').style.display = 'none';
+      btn.textContent = 'Send me the Teams link →';
+      btn.disabled = false;
+      document.getElementById('qa-zoho-form').reset();
+    }, 4000);
+  }).catch(function() {
+    btn.textContent = 'Send me the Teams link →';
+    btn.disabled = false;
+  });
+});
+</script>
+</body>
+</html>
