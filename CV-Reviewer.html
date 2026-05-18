@@ -602,7 +602,7 @@ async function runReview() {
 
   for (let i = 0; i < cvFiles.length; i++) {
     pb.style.width = Math.round((i / cvFiles.length) * 100) + '%';
-    const estSecs = (cvFiles.length - i) * 2;
+    const estSecs = (cvFiles.length - i) * 8;
     const estLabel = estSecs > 60 ? `~${Math.ceil(estSecs/60)} min remaining` : `~${estSecs}s remaining`;
     pl.textContent = `Reviewing ${i+1} of ${cvFiles.length}: ${cvFiles[i].name}… (${estLabel})`;
     try {
@@ -612,8 +612,8 @@ async function runReview() {
     } catch (e) {
       analysisResults.push({ filename: cvFiles[i].name, candidateName: cvFiles[i].name.replace(/\.(pdf|docx|doc)$/i,''), verdict: 'pass', score: 0, error: e.message });
     }
-    // 1s pause between CVs - Groq free tier allows 30 req/min
-    if (i < cvFiles.length - 1) await new Promise(r => setTimeout(r, 1000));
+    // 7s pause between CVs - balanced for free tier TPM limit
+    if (i < cvFiles.length - 1) await new Promise(r => setTimeout(r, 7000));
   }
 
   pb.style.width = '100%';
@@ -643,7 +643,7 @@ JOB DESCRIPTION:
 ${jd}
 
 ${criteriaBlock ? `CRITERIA:\n${criteriaBlock}\n\n` : ''}CV (file: ${filename}):
-${cvText.slice(0, 7000)}
+${cvText.slice(0, 3500)}
 
 Return exactly this JSON:
 {
